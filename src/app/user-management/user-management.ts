@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import {User} from './user.model';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-user-management',
-  imports: [],
+  imports: [
+    FormsModule
+  ],
   templateUrl: './user-management.html',
   styleUrl: './user-management.css',
 })
@@ -27,7 +30,7 @@ export class UserManagement {
   }
 
   editUser(user: User){
-    this.editingUser = user;
+    this.editingUser = {...user};
   }
 
   updateUser(){
@@ -35,10 +38,14 @@ export class UserManagement {
       const index =
         this.users.findIndex(u => u.id === this.editingUser!.id);
       if(index !== -1){
-        this.users[index] = this.editingUser
+        this.users[index] = {...this.editingUser};
       }
       this.editingUser = null;
     }
+  }
+
+  deleteUser(id?: number){
+    this.users = this.users.filter(u => u.id !== id);
   }
 
 
