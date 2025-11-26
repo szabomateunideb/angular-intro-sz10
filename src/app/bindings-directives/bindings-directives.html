@@ -1,0 +1,73 @@
+<div class="container">
+
+  <!--Kötések, bindings, property & event binding-->
+  <h1>{{ title }}</h1><!--String interpoláció-->
+  <h2 [innerHTML]="title"></h2><!--Tulajdonságkötés-->
+
+  <input [value]="userInput" placeholder="Tulajdonságkötés (egyutas)">
+  <input [(ngModel)]="userInput" placeholder="Kétutas adatkötés">
+  <p>A megadott szöveg {{userInput}}</p>
+
+  <button (click)="toggleHighlight()">Kiemelés váltása</button>
+  <p>A kiemelés értéke {{isHighlighted}}</p>
+
+  <!--Attribútum direktívák-->
+  <button (click)="fontSize = fontSize+2">Betűméret növelése</button>
+  <button (click)="fontSize = fontSize-2">Betűméret csökkentése</button>
+  <p [ngClass]="{'highlighted': isHighlighted}">A szöveg kiemelése változhat</p>
+  <p [ngStyle]="{'font-size.px' : fontSize}">A betűméret változik</p>
+
+  <!--Strukturális direktívák-->
+  <div *ngIf="isVisible">
+    <p>Ez a szöveg látható ha az isVisible értéke igaz.</p>
+  </div>
+  <button (click)="isVisible = !isVisible">
+    {{ isVisible ? 'Elrejtés' : 'Megjelenítés'}}
+  </button>
+
+  @if (isVisible){
+    <p>Visible true</p>
+  } @else {
+    <p>Visible false</p>
+  }
+
+  <h2>Gyümölcsök listája</h2>
+  <ul>
+    <li *ngFor="let item of items"> {{ item }} </li>
+  </ul>
+
+  <ul>
+    @for (item of items; track item){
+      <li>{{ item }}</li>
+    } @empty {
+      <li>Nincs elem</li>
+    }
+  </ul>
+
+  <h2>Válassz gyümölcsöt</h2>
+  <select [(ngModel)]="selectedFruit">
+    <option value="Alma">Alma</option>
+    <option value="Banán">Banán</option>
+    <option value="Cseresznye">Cseresznye</option>
+  </select>
+
+  <div [ngSwitch]="selectedFruit">
+    <p *ngSwitchCase="'Alma'">Kiválasztott gyümölcs: Alma</p>
+    <p *ngSwitchCase="'Banán'">Kiválasztott gyümölcs: Banán</p>
+    <p *ngSwitchCase="'Cseresznye'">Kiválasztott gyümölcs: Cseresznye</p>
+  </div>
+
+  @switch (selectedFruit){
+    @case ('Alma') {<p> Alma </p>}
+    @case ('Banán') {<p> Banán </p>}
+    @case ('Cseresznye') {<p> Cseresznye </p>}
+    @default {
+      <p>Alapértelmezett, egyik sem</p>
+    }
+  }
+
+  <input [value]="szoveg()" (input)="szoveg.set($any($event.target).value)">
+  <p>Signal értéke: {{szoveg()}}</p>
+
+
+</div>
