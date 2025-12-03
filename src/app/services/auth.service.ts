@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {LoginDto} from '../models/login-dto';
+import {LoginDto} from '../models/login.dto';
 import {BehaviorSubject, tap} from 'rxjs';
 
 @Injectable({
